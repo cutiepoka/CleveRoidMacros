@@ -285,6 +285,7 @@ Check slash command and all conditional lists for new usages!
 | form           | [form:0/1/2/3/4/5] | * |  | Alias of `stance` |
 | group          | [group]<br/>[group:party/raid] | * | * | If the player is in any group or specific group type. |
 | known          | [known]<br/>[known:"Name"]</br>[known:"Name">#2] | * | * | If the player knows a spell or talent.  Can optionally check the rank. |
+| mycasting        | [mycasting]<br/>[mycasting:"Spell Name"] | * |  * |  If theplayer is casting any or one or more specific spells. |
 | mybuff         | [mybuff]<br/>[mybuff:"Name"]<br/>[mybuff:"Name">#X]<br/>[mybuff:<X] | * |  | If the player has a buff of the given name.</br>Optionally compared to X number of stacks.<br/>Optionally compared to X time remaining. |
 | mydebuff       | [mydebuff]<br/>[mydebuff:"Name"]<br/>[mydebuff:"Name">#X]<br/>[mydebuff:<X] | * |  | If the player has a debuff of the given name.<br/>Optionally compared to X number of stacks.<br/>Optionally compared to X time remaining. |
 | myhp           | [myhp:<=X]<br/>[myhp:>=X/<=Y] | * |  | The player's health **PERCENT** compared to X. |
