@@ -626,6 +626,21 @@ CleveRoids.Keywords = {
             return not CleveRoids.CheckSpellCast(conditionals.target, spell)
         end)
     end,
+	
+    mycasting = function(conditionals)
+        if type(conditionals.mycasting) ~= "table" then return CleveRoids.CheckSpellCast("player", "") end
+        return Or(conditionals.mycasting, function (spell)
+            return CleveRoids.CheckSpellCast("player", spell)
+        end)
+    end,
+
+    nomycasting = function(conditionals) 
+        if type(conditionals.nomycasting) ~= "table" then return not CleveRoids.CheckSpellCast("player", "") end
+        return And(conditionals.nomycasting, function (spell)
+            print('here', spell, CleveRoids.CheckSpellCast("player", spell))
+            return not CleveRoids.CheckSpellCast("player", spell)
+        end)
+    end,
 
     zone = function(conditionals)
         local zone = GetRealZoneText()
