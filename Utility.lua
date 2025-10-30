@@ -261,5 +261,7 @@ CleveRoids.comparators["<="] = CleveRoids.comparators.lte
 CleveRoids.comparators[">="] = CleveRoids.comparators.gte
 CleveRoids.comparators["~="] = CleveRoids.comparators.ne
 
+CleveRoids.units = { "player", "party1", "party2", "party3", "party4" }
+
 
 _G["CleveRoids"] = CleveRoids

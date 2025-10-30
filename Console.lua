@@ -202,3 +202,20 @@ SlashCmdList.STOPMACRO = function(msg)
     CleveRoids.DoStopMacro(msg)
 end
 
+SLASH_EVERYONE1 = "/everyone"
+SlashCmdList.EVERYONE = function(msg)
+    for _, unit in ipairs(CleveRoids.units) do
+        local cond_start, cond_end = string.find(msg, "^%s*%[.-%]%s*")
+        if cond_start and cond_end then
+            local cond_raw = string.sub(msg, cond_start, cond_end)
+            local cond = string.gsub(cond_raw, "^%[", "[@"..unit..", ")
+            local spell_raw = string.sub(msg, cond_end + 1)
+            local spell = string.gsub(spell_raw, "^%s+", "")
+            if spell and spell ~= "" then
+                CleveRoids.DoCast(cond .. " " .. spell)
+            end
+        else
+            CleveRoids.DoCast("[@"..unit.."] " .. msg)
+        end
+    end
+end
