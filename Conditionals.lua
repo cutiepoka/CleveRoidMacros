@@ -785,24 +785,24 @@ CleveRoids.Keywords = {
         return not UnitExists(conditionals.target)
     end,
 
-    tag = function(conditionals)
-        return UnitIsTapped(conditionals.target)
+    tag = function(conditionals) 
+        return conditionals.target and UnitIsTapped(conditionals.target)
     end,
 
     notag = function(conditionals)
-        return not UnitIsTapped(conditionals.target)
+        return conditionals.target and not UnitIsTapped(conditionals.target)
     end,
 
     mytag = function(conditionals)
-        return UnitIsTappedByPlayer(conditionals.target)
+        return conditionals.target and UnitIsTappedByPlayer(conditionals.target)
     end,
 
     nomytag = function(conditionals)
-        return not UnitIsTappedByPlayer(conditionals.target)
+        return conditionals.target and not UnitIsTappedByPlayer(conditionals.target)
     end,
  
     othertag = function(conditionals)
-        return tag(conditionals) and not mytag(conditionals)
+        return conditionals.target and UnitIsTapped(conditionals.target) and not UnitIsTappedByPlayer(conditionals.target)
     end, 
 
     help = function(conditionals)
