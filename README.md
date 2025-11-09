@@ -331,6 +331,9 @@ Check slash command and all conditional lists for new usages!
 | targeting      | [targeting:unitid] | * | * | If the @unitid is targeting the specified unitid.<br/>See this [article](https://wowpedia.fandom.com/wiki/UnitId) for a list of unitids.<br/>Not all units are valid in vanilla. |
 | exists         | [exists] |  | * | If the @unitid exists. |
 | @unitid        | [@mouseover] |  |  | The @unitid is a valid target. |
+| tag          | [tag] |  | * | The target is tagged by someone (This could be the player). |
+| mytag          | [mytag] |  | * | The target is tagged by the player. |
+| othertag          | [othertag] |  | * | The target is tagged by someone else. |
 | class          | [class:classname1/classname2]<br/>[class:Warrior/Priest] | * | * | The target is a player of the specified class/classes. |
 
 ### Unitids

@@ -785,6 +785,26 @@ CleveRoids.Keywords = {
         return not UnitExists(conditionals.target)
     end,
 
+    tag = function(conditionals)
+        return UnitIsTapped(conditionals.target)
+    end,
+
+    notag = function(conditionals)
+        return not UnitIsTapped(conditionals.target)
+    end,
+
+    mytag = function(conditionals)
+        return UnitIsTappedByPlayer(conditionals.target)
+    end,
+
+    nomytag = function(conditionals)
+        return not UnitIsTappedByPlayer(conditionals.target)
+    end,
+ 
+    othertag = function(conditionals)
+        return tag(conditionals) and not mytag(conditionals)
+    end, 
+
     help = function(conditionals)
         return conditionals.help and conditionals.target and UnitExists(conditionals.target) and UnitCanAssist("player", conditionals.target)
     end,
@@ -918,8 +938,7 @@ CleveRoids.Keywords = {
 
     nomycasting = function(conditionals) 
         if type(conditionals.nomycasting) ~= "table" then return not CleveRoids.CheckSpellCast("player", "") end
-        return And(conditionals.nomycasting, function (spell)
-            print('here', spell, CleveRoids.CheckSpellCast("player", spell))
+        return And(conditionals.nomycasting, function (spell)  
             return not CleveRoids.CheckSpellCast("player", spell)
         end)
     end,
