@@ -180,6 +180,8 @@ Check slash command and all conditional lists for new usages!
 | /runmacro             |   | Runs a macro.  Use /runmacro {macroname} |
 | /use                  | * | Uses an item by name or id |
 | /cast                 | * | Casts a spell by name      |
+| /applymain            | * | Applies a poison or other thing to your main hand weapon example: /applymain Instant Poison |
+| /applyoff             | * | Applies a poison or other thing to your off hand weapon |
 | /stopmacro            | * | prevent any lines under /stopmacro from being run unless conditionals are met |
 
 ## Cast Sequence
