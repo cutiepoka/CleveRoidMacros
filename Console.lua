@@ -176,6 +176,16 @@ end
 SlashCmdList.TARGET = CleveRoids.TARGET_SlashCmd
 
 
+SLASH_APPLYMAIN1 = "/applymain"
+SlashCmdList.APPLYMAIN = function(msg)
+    CleveRoids.DoApply("main",msg)
+end
+
+SLASH_APPLYOFF1 = "/applyoff"
+SlashCmdList.APPLYOFF = function(msg)
+    CleveRoids.DoApply("off",msg)
+end
+
 SLASH_CASTSEQUENCE1 = "/castsequence"
 SlashCmdList.CASTSEQUENCE = function(msg)
     msg = CleveRoids.Trim(msg)

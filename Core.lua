@@ -1307,6 +1307,58 @@ function CleveRoids.DoRetarget()
 end
 
 -- Attempts to stop macro
+ function CleveRoids.DoApply(hand,msg) 
+    local handled = false
+
+    local action = function(poison)  
+        local weaponSlots = {
+            ["main"] = 16,
+            ["off"]  = 17,
+        }
+
+        local function FindItemInBags(itemName)
+            for b = 0, 4 do
+                for s = 1, GetContainerNumSlots(b) do
+                    local link = GetContainerItemLink(b, s)
+                    if link and string.find(link, itemName) then
+                        return b, s
+                    end
+                end
+            end
+            return nil -- not found
+        end
+
+        -- Apply a poison to a specific hand
+        local slot = weaponSlots[hand]
+        if not slot then
+            print("Invalid hand: " .. tostring(hand))
+            return
+        end
+
+        local bag, slotIndex = FindItemInBags(poison)
+        if not bag then
+            print("Poison not found: " .. poison)
+            return
+        end
+
+        -- Apply poison
+        -- print("Applying " .. poison .. " to " .. hand .. " hand...")
+        UseContainerItem(bag, slotIndex)
+        PickupInventoryItem(slot) 
+        ReplaceEnchant()
+		ClearCursor()
+    end
+
+    for k, v in pairs(CleveRoids.splitStringIgnoringQuotes(msg)) do
+        if CleveRoids.DoWithConditionals(v, action, CleveRoids.FixEmptyTarget, false, action) then
+            handled = true
+            break
+        end
+    end
+    return handled
+end
+
+-- Attempts to stop macro
  function CleveRoids.DoStopMacro(msg)
     local handled = false
     for k, v in pairs(CleveRoids.splitStringIgnoringQuotes(CleveRoids.Trim(msg))) do

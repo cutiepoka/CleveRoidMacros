@@ -516,6 +516,49 @@ function CleveRoids.GetPlayerAura(index, isbuff)
     return GetPlayerBuffTexture(bid), GetPlayerBuffApplications(bid), spellID, GetPlayerBuffTimeLeft(bid)
 end
 
+function CleveRoids.ValidateEnchant(hand, args)
+    -- print("Validating enchant...")
+    -- print(hand) 
+    -- print(args) 
+
+    if not args then return false end
+    
+    local hasMainHandEnchant, mainHandExpiration, mainHandCharges, hasOffHandEnchant, offHandExpiration, offHandCharges, hasThrownEnchant, thrownExpiration, thrownCharges = GetWeaponEnchantInfo()
+    
+    if(hand == "main") then
+        found = hasMainHandEnchant
+        stacks = mainHandCharges
+        remaining = mainHandExpiration and (mainHandExpiration / 1000) or -1
+    elseif(hand == "off") then
+        found = hasOffHandEnchant
+        stacks = offHandCharges
+        remaining = offHandExpiration and (offHandExpiration / 1000) or -1
+    elseif(hand == "throw") then
+        found = hasThrownEnchant   
+        stacks = thrownCharges
+        remaining = thrownExpiration and (thrownExpiration / 1000) or -1
+    end
+
+    if type(args) ~= "table" then
+        args = {name = args}
+    -- else
+    --     for k, v in pairs(args) do
+    --         print(k, v)
+    --     end
+    end
+    
+    local ops = CleveRoids.operators
+    if not args.amount and not args.operator and not args.checkStacks then
+        return found
+    elseif isPlayer and not args.checkStacks and args.amount and ops[args.operator] then
+        return CleveRoids.comparators[args.operator](remaining or -1, args.amount)
+    elseif args.amount and args.checkStacks and ops[args.operator] then
+        return CleveRoids.comparators[args.operator](stacks or -1, args.amount)
+    else
+        return false
+    end
+end
+
 function CleveRoids.ValidateAura(unit, args, isbuff)
     if not args or not UnitExists(unit) then return false end
 
@@ -1043,6 +1086,42 @@ CleveRoids.Keywords = {
     checkchanneled = function(conditionals)
         return And(conditionals.checkchanneled, function(channeledSpells)
             return CleveRoids.CheckChanneled(channeledSpells)
+        end)
+    end,
+
+    mainenchant = function(conditionals)
+        return And(conditionals.mainenchant, function(v)
+            return CleveRoids.ValidateEnchant("main",v)
+        end)
+    end,
+
+    nomainenchant = function(conditionals)
+        return And(conditionals.nomainenchant, function(v)
+            return not CleveRoids.ValidateEnchant("main",v)
+        end)
+    end,
+
+    offenchant = function(conditionals)
+        return And(conditionals.offenchant, function(v)
+            return CleveRoids.ValidateEnchant("off",v)
+        end)
+    end,
+
+    nooffenchant = function(conditionals)
+        return And(conditionals.nooffenchant, function(v)
+            return not CleveRoids.ValidateEnchant("off",v)
+        end)
+    end,
+
+    throwenchant = function(conditionals)
+        return And(conditionals.throwenchant, function(v)
+            return CleveRoids.ValidateEnchant("throw",v)
+        end)
+    end,
+
+    nothrowenchant = function(conditionals)
+        return And(conditionals.nothrowenchant, function(v)
+            return not CleveRoids.ValidateEnchant("throw",v)
         end)
     end,
 
