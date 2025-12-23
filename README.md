@@ -305,6 +305,7 @@ Check slash command and all conditional lists for new usages!
 | mainenchant| [mainenchant:<=X]<br/>[mainenchant:>=X/<=Y]<br/>[mainenchant:>#X] | * | * | Checks if your weapon is enchanted use #X to check the stacks and <X to check seconds left. The name of the enchant is not supported |
 | offenchant| [offenchant:<=X]<br/>[offenchant:>=X/<=Y]<br/>[offenchant:>#X] | * | * | Checks if your weapon is enchanted use #X to check the stacks and <X to check seconds left. The name of the enchant is not supported ||
 | throwenchant| [throwenchant:<=X]<br/>[throwenchant:>=X/<=Y]<br/>[throwenchant:>#X] | * | * | Checks if your weapon is enchanted use #X to check the stacks and <X to check seconds left. The name of the enchant is not supported |
+| threat| [threat:<=X]<br/>[threat:>=X/<=Y]<br/>[threat:>#X] | * | * | Check the percentage of threat according to TWT threat meter. **You need this version installed: [TWThreat](https://github.com/cutiepoka/TWThreat)**|
 | stat | [stat:stat>=x] |  |  | Check if one of the players statistics is greater or less than a specific number. Available Stats: str/strength, agi/agility, stam/stamina, int/intellect, spi/spirit, ap/attackpower, rap/rangedattackpower, healing/healingpower, arcane_power, fire_power, frost_power, nature_power, shadow_power, armor, defense, arcane_res, fire_res, frost_res, nature_res, shadow_res. |
 
 ### Unit Based

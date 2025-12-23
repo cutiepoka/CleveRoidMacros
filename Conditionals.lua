@@ -373,6 +373,22 @@ end
 
 -- TODO: refactor numeric comparisons...
 
+function CleveRoids.ValidateThreat(operator, args) 
+    if not operator or not args or not TWT.threats[playerName] then return false end
+
+    if not TWT or not TWT.threats then
+        return false
+    end 
+    
+    local threatInfo = TWT.threats[playerName] 
+
+    if CleveRoids.operators[operator] then
+        return CleveRoids.comparators[operator](threatInfo.perc, args.amount)
+    end 
+
+    return false
+end
+
 -- Checks whether or not the given unit has power in percent vs the given amount
 -- unit: The unit we're checking
 -- operator: valid comparitive operator symbol
@@ -1170,6 +1186,13 @@ CleveRoids.Keywords = {
     nomydebuff = function(conditionals)
         return And(conditionals.nomydebuff, function(v)
             return not CleveRoids.ValidatePlayerDebuff(v)
+        end)
+    end,
+
+    threat = function(conditionals)
+        return And(conditionals.threat, function(args)
+            if type(args) ~= "table" then return false end
+            return CleveRoids.ValidateThreat(args.operator, args)
         end)
     end,
 
